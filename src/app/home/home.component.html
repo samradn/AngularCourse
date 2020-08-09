@@ -20,17 +20,17 @@
   </mat-card-content>
 </mat-card>
 
-<mat-card *ngIf="promotion" fxFlex>
+<mat-card *ngIf="promo" fxFlex>
   <mat-card-header>
     <div mat-card-avatar></div>
     <mat-card-title>
       <h2 style="color:crimson;">FEATURED PROMOTION</h2>
-      <h3>{{promotion.name | uppercase}}</h3>
+      <h3>{{promo.name | uppercase}}</h3>
     </mat-card-title>
   </mat-card-header>
-  <img mat-card-image src={{promotion.image}} alt={{promotion.name}}>
+  <img mat-card-image src={{promo.image}} alt={{promo.name}}>
   <mat-card-content>
-    <p>{{promotion.description}}
+    <p>{{promo.description}}
     </p>
   </mat-card-content>
 </mat-card>
