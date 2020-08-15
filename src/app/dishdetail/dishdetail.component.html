@@ -6,8 +6,7 @@
     fxLayoutGap="10px" 
     fxLayoutGap.xs="0">
 
-    <div fxFlex="40">
-    <div *ngIf = "dish">
+    <div fxFlex="40" *ngIf = "dish">
         <mat-card>
             <mat-card-header>
                 <mat-card-title>
@@ -19,19 +18,23 @@
                 <p>{{ dish.description }}</p>
             </mat-card-content>
             <mat-card-actions>
+                <p>{{ prev | json }} {{ next | json }}</p>
+                <button mat-button [routerLink]="['/dishdetails', prev]">
+                    PREV</button> 
                 <button mat-button (click)="goBack()"> BACK </button>
                 <button mat-button > LIKE </button>
                 <button mat-button > SHARE </button>
+                <button mat-button [routerLink]="['/dishdetails', next]">
+                    <span class="fa fa-chevron-right fa-lg"></span></button>  
             </mat-card-actions>
         </mat-card>
-    </div>
     </div>
 
     <div [hidden] = "dish">
         <mat-spinner></mat-spinner><h4>Loading.....Please Wait</h4>
       </div>
 
-  <div fxFlex="40">
+  <div fxFlex="40" *ngIf = "dish">
     
     <mat-list>
         <h3>Comments</h3>
