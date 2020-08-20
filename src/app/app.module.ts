@@ -20,6 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from "@angular/common/http";
 
 
 import 'hammerjs';
@@ -34,7 +35,10 @@ import { ContactComponent } from './contact/contact.component'
 import { DishService } from './services/dish.service';
 import { PromotionService } from './services/promotion.service';
 import { LeaderService } from './services/leader.service';
+import { baseUrl } from "./shared/baseurl";
+
 import { LoginComponent } from './login/login.component';
+
 
 @NgModule({
   declarations: [
@@ -67,12 +71,18 @@ import { LoginComponent } from './login/login.component';
     MatSlideToggleModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
-    MatSliderModule
+    MatSliderModule,
+    HttpClientModule
   ],
   entryComponents: [
     LoginComponent
   ],
-  providers: [DishService, PromotionService, LeaderService],
+  providers: [
+    DishService, 
+    PromotionService, 
+    LeaderService,
+    {provide: 'BaseUrl', useValue: baseUrl}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
