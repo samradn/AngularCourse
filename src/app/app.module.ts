@@ -39,6 +39,7 @@ import { ProcessHTTPMsgService } from "./services/process-httpmsg.service";
 import { baseUrl } from "./shared/baseurl";
 
 import { LoginComponent } from './login/login.component';
+import { HighlighterDirective } from './directives/highlighter.directive';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { LoginComponent } from './login/login.component';
     HomeComponent,
     AboutComponent,
     ContactComponent,
-    LoginComponent
+    LoginComponent,
+    HighlighterDirective
   ],
   imports: [
     BrowserModule,
