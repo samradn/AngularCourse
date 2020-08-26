@@ -5,7 +5,7 @@
      fxLayoutAlign.gt-md="space-around center"
      fxLayoutGap="10px">
 
-<mat-card *ngIf="dish" fxFlex>
+<mat-card *ngIf="dish" fxFlex [@expand]>
   <mat-card-header>
     <div mat-card-avatar></div>
     <mat-card-title>
@@ -29,7 +29,7 @@
   <h4>{{ dishErrMess }}</h4>
 </div>
 
-<mat-card *ngIf="promo" fxFlex>
+<mat-card *ngIf="promo" fxFlex [@expand]>
   <mat-card-header>
     <div mat-card-avatar></div>
     <mat-card-title>
@@ -37,18 +37,23 @@
       <h3>{{promo.name | uppercase}}</h3>
     </mat-card-title>
   </mat-card-header>
-  <img mat-card-image src={{promo.image}} alt={{promo.name}}>
+  <img mat-card-image src="{{BaseUrl + promo.image}}" alt={{promo.name}}>
   <mat-card-content>
     <p>{{promo.description}}
     </p>
   </mat-card-content>
 </mat-card>
 
-<div [hidden] = "promo">
+<div [hidden] = "promo || promErrMess">
   <mat-spinner></mat-spinner><h4>Loading.....Please Wait</h4>
 </div>
 
-<mat-card *ngIf="leader" fxFlex>
+<div *ngIf="promErrMess">
+  <h2>Error</h2>
+  <h4>{{ promErrMess }}</h4>
+</div>
+
+<mat-card *ngIf="leader" fxFlex [@expand]>
   <mat-card-header>
     <div mat-card-avatar></div>
     <mat-card-title>
@@ -56,7 +61,7 @@
       <h3>{{leader.name | uppercase}}</h3>
     </mat-card-title>
   </mat-card-header>
-  <img mat-card-image src={{leader.image}} alt={{leader.name}}>
+  <img mat-card-image src="{{BaseUrl + leader.image}}" alt={{leader.name}}>
   <mat-card-content>
     <h3> {{leader.designation}} </h3>
     <p> {{leader.description}}
@@ -64,8 +69,13 @@
   </mat-card-content>
 </mat-card>
 
-<div [hidden] = "leader">
+<div [hidden] = "leader || leaderErrMess">
   <mat-spinner></mat-spinner><h4>Loading.....Please Wait</h4>
+</div>
+
+<div *ngIf="leaderErrMess">
+  <h2>Error</h2>
+  <h4>{{ leaderErrMess }}</h4>
 </div>
 
 </div>

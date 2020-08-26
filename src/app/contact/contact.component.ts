@@ -1,17 +1,32 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Feedback, ContactType } from '../shared/feedback';
+import { flyInOut } from '../animations/app.animation';
+import { FeedbackService } from "../services/feedback.service";
+import { delay } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss']
+  styleUrls: ['./contact.component.scss'],
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
+    '[@flyInOut]': 'true',
+    'style': 'display: block;'
+    },
+    animations: [
+      flyInOut()
+    ]
 })
 export class ContactComponent implements OnInit {
 
   feedbackForm: FormGroup;
   feedback: Feedback;
   contactType = ContactType;
+  feedbackCopy: Feedback;
+  errMess: string;
+
   @ViewChild('fform') feedbackFormDirective: any;
 
   formErrors = {
@@ -42,7 +57,8 @@ export class ContactComponent implements OnInit {
     },
   };
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+    private feedbackService: FeedbackService) {
     this.createForm();
   }
 
@@ -90,6 +106,13 @@ export class ContactComponent implements OnInit {
   onSubmit() {
     this.feedback = this.feedbackForm.value;
     console.log(this.feedback);
+    this.feedbackService.postFeedback(this.feedback)
+    .subscribe(feedback => {
+      this.feedback = null; this.feedbackCopy = feedback;
+    },
+    errmess => {
+      this.errMess = <any>errmess; //this.dish = null; this.dishCopy = null
+    });
     this.feedbackForm.reset({
       firstname: '',
       lastname: '',
@@ -100,6 +123,8 @@ export class ContactComponent implements OnInit {
       message: ''
     });
     this.feedbackFormDirective.resetForm();
+    delay(3000);
+    this.feedbackCopy = null;
   }
 
 }
